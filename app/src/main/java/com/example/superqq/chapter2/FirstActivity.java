@@ -40,11 +40,29 @@ public class FirstActivity extends Activity {
 //                startActivity(indent);
 //            }
 
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setData(Uri.parse("http://www.baidu.com"));
+//                startActivity(intent);
+
+//            @Override
+//            public  void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_DIAL);
+//                intent.setData(Uri.parse("tel:10086"));
+//                startActivity(intent);
+
+//            @Override
+//            public void onClick(View v) {
+//                String data = "hello secondActivity";
+//                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+//                intent.putExtra("extra_data", data);
+//                startActivity(intent);
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("http://www.baidu.com"));
-                startActivity(intent);
+               Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+                startActivityForResult(intent, 1);
             }
 
         });
@@ -94,5 +112,19 @@ public class FirstActivity extends Activity {
             default:
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("FirstActivity", "lll1");
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    String returnedData = data.getStringExtra("data_return");
+                    Log.d("FirstActivity", returnedData);
+                }
+                break;
+            default:
+        }
     }
 }
